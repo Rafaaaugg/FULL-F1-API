@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto 1 - Programação Web Fullstack</title>
+</head>
+<body>
+    <h1>F1</h1>
+
+    <input type="text" id="searchInput" placeholder="Digite sua busca">
+    <button onclick="search()">Buscar</button>
+
+    <div id="results"></div>
+
+    <script>
+        function search() {
+            var searchInput = document.getElementById('searchInput').value;
+            var url = 'http://ergast.com/api/f1/drivers/' + searchInput + '.json';
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    displayResults(data);
+                } else {
+                    console.error('Erro ao buscar dados:', xhr.statusText);
+                }
+            };
+            xhr.onerror = function () {
+                console.error('Erro de conexão.');
+            };
+            xhr.send();
+        }
+
+        function displayResults(data) {
+            var resultsContainer = document.getElementById('results');
+            resultsContainer.innerHTML = '';
+
+            if (data.MRData.DriverTable.Drivers.length > 0) {
+                data.MRData.DriverTable.Drivers.forEach(function(driver) {
+                    var resultItem = document.createElement('div');
+                    resultItem.innerHTML = `
+                        <p>Driver ID: ${driver.driverId}</p>
+                        <p>Code: ${driver.code}</p>
+                        <p>Given Name: ${driver.givenName}</p>
+                        <p>Family Name: ${driver.familyName}</p>
+                        <p>Date of Birth: ${driver.dateOfBirth}</p>
+                        <p>Nationality: ${driver.nationality}</p>
+                        <hr>
+                    `;
+                    resultsContainer.appendChild(resultItem);
+                });
+            } else {
+                resultsContainer.textContent = 'Nenhum resultado encontrado.';
+            }
+        }
+    </script>
+</body>
+</html>
