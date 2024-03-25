@@ -1,0 +1,73 @@
+.Title {
+  text-align: center; 
+  margin-top: 20px;
+  background-color: #000000;
+  border-radius: 20px;
+}
+
+.Title img {
+  display: block; 
+  margin: 0 auto;
+}
+
+.busca {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+hr {
+
+}
+#searchInput {
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 7px;
+  font-size: 20px;
+  width: 400px;
+  margin-right: 20px;
+}
+
+button {
+  padding: 12px;
+  margin-bottom: 20px;
+  background-color: #d8c111;
+  color: #000000;
+  border: none;
+  border-radius: 7px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.result-item {
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.result-item p strong {
+  font-weight: bold;
+  color: #d8c111;
+}
+
+.result-item p {
+  display: inline-block; 
+  width: 33%; 
+  text-align: center;
+  font-size: 20px;
+}
+
+.result-item hr {
+    border-width: 5px;
+    border-color: black;
+}
+
+#results:empty::before {
+  content: 'Nenhum resultado encontrado.';
+  text-align: center;
+  display: block;
+  padding: 10px;
+  border: 2px solid #000000;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}

@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto 1 - Programação Web Fullstack</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./stylesheets/style.css">
 </head>
 <body>
-    <h1>F1</h1>
+    <div class="Title">
+        <a href="/"> <img src="./images/f1logo.png"></a>
+    </div> 
 
-    <input type="text" id="searchInput" placeholder="Digite sua busca">
-    <button onclick="search()">Buscar</button>
+    <div class="busca">
+        <input type="text" id="searchInput" placeholder="Digite um sobrenome">
+        <button onclick="search()">Pesquisar</button>
+    </div>
 
     <div id="results"></div>
 
@@ -38,19 +42,21 @@
             resultsContainer.innerHTML = '';
 
             if (data.MRData.DriverTable.Drivers.length > 0) {
-                data.MRData.DriverTable.Drivers.forEach(function(driver) {
-                    var resultItem = document.createElement('div');
-                    resultItem.innerHTML = `
-                        <p>Driver ID: ${driver.driverId}</p>
-                        <p>Code: ${driver.code}</p>
-                        <p>Given Name: ${driver.givenName}</p>
-                        <p>Family Name: ${driver.familyName}</p>
-                        <p>Date of Birth: ${driver.dateOfBirth}</p>
-                        <p>Nationality: ${driver.nationality}</p>
-                        <hr>
-                    `;
-                    resultsContainer.appendChild(resultItem);
-                });
+                var driver = data.MRData.DriverTable.Drivers[0];
+
+                var parts = driver.dateOfBirth.split('-');
+                var formattedDateOfBirth = parts[2] + '/' + parts[1] + '/' + parts[0];
+
+                var resultItem = document.createElement('div');
+                resultItem.classList.add('result-item');
+                resultItem.innerHTML = `
+                    <hr>
+                    <p><strong>Nome:</strong> ${driver.givenName} ${driver.familyName}</p>
+                    <p><strong>Nascimento:</strong> ${formattedDateOfBirth}</p>
+                    <p><strong>Nacionalidade:</strong> ${driver.nationality}</p>
+                    <hr>
+                `;
+                resultsContainer.appendChild(resultItem);
             } else {
                 resultsContainer.textContent = 'Nenhum resultado encontrado.';
             }
