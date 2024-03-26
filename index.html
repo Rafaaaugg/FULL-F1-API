@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./stylesheets/style.css">
 </head>
+
 <body>
     <div class="Title">
         <a href="/"> <img src="./images/f1logo.png"></a>
-    </div> 
+    </div>
 
     <div class="busca">
         <input type="text" id="searchInput" placeholder="Digite um sobrenome">
@@ -20,6 +22,11 @@
     <script>
         function search() {
             var searchInput = document.getElementById('searchInput').value;
+            var resultsContainer = document.getElementById('results');
+            if (searchInput === '') {
+                resultsContainer.innerHTML = '';
+                return
+            }
             var url = 'http://ergast.com/api/f1/drivers/' + searchInput + '.json';
             var xhr = new XMLHttpRequest();
             xhr.open('GET', url, true);
@@ -63,4 +70,5 @@
         }
     </script>
 </body>
+
 </html>
