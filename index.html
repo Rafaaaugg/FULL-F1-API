@@ -27,7 +27,7 @@
                 resultsContainer.innerHTML = '';
                 return
             }
-            var url = 'http://ergast.com/api/f1/drivers/' + searchInput + '.json';
+            var url = 'https://ergast.com/api/f1/drivers/' + searchInput + '.json';
             var xhr = new XMLHttpRequest();
             xhr.open('GET', url, true);
             xhr.onload = function () {
