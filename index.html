@@ -15,6 +15,12 @@
     <div class="busca">
         <input type="text" id="searchInput" placeholder="Digite um sobrenome" oninput="search()">
         <button onclick="search()">Pesquisar</button>
+        <div class="campos">
+            <strong>Nome</strong>
+            <strong>Nascimento</strong>
+            <strong>Nacionalidade</strong>
+            <strong>Wikipedia</strong>
+        </div>
     </div>
 
     <div id="results"></div>
@@ -62,10 +68,10 @@
                     resultItem.classList.add('result-item');
                     resultItem.innerHTML = `
                         <hr>
-                        <p><strong>Nome:</strong> ${driver.givenName} ${driver.familyName}</p>
-                        <p><strong>Nascimento:</strong> ${formattedDateOfBirth}</p>
-                        <p><strong>Nacionalidade:</strong> ${driver.nationality}</p>
-                        <hr>
+                        <p>${driver.givenName} ${driver.familyName}</p>
+                        <p>${formattedDateOfBirth}</p>
+                        <p>${driver.nationality}</p>
+                        <p><a href="${driver.url}">Saiba Mais</a></p>
                     `;
                     resultsContainer.appendChild(resultItem);
                 });
