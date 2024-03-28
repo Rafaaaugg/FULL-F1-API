@@ -13,7 +13,7 @@
     </div>
 
     <div class="busca">
-        <input type="text" id="searchInput" placeholder="Digite um sobrenome">
+        <input type="text" id="searchInput" placeholder="Digite um sobrenome" oninput="search()">
         <button onclick="search()">Pesquisar</button>
     </div>
 
@@ -27,13 +27,13 @@
                 resultsContainer.innerHTML = '';
                 return
             }
-            var url = 'https://ergast.com/api/f1/drivers/' + searchInput + '.json';
+            var url = 'https://ergast.com/api/f1/drivers.json?limit=859';
             var xhr = new XMLHttpRequest();
             xhr.open('GET', url, true);
             xhr.onload = function () {
                 if (xhr.status == 200) {
                     var data = JSON.parse(xhr.responseText);
-                    displayResults(data);
+                    displayResults(data, searchInput);
                 } else {
                     console.error('Erro ao buscar dados:', xhr.statusText);
                 }
@@ -44,28 +44,33 @@
             xhr.send();
         }
 
-        function displayResults(data) {
+        function displayResults(data, searchInput) {
             var resultsContainer = document.getElementById('results');
             resultsContainer.innerHTML = '';
+            var drivers = data.MRData.DriverTable.Drivers;
 
-            if (data.MRData.DriverTable.Drivers.length > 0) {
-                var driver = data.MRData.DriverTable.Drivers[0];
+            var filteredDrivers = drivers.filter(function (driver) {
+                return driver.driverId && driver.familyName.toLowerCase().startsWith(searchInput.toLowerCase()) || driver.givenName.toLowerCase().startsWith(searchInput.toLowerCase());
+            });
 
-                var parts = driver.dateOfBirth.split('-');
-                var formattedDateOfBirth = parts[2] + '/' + parts[1] + '/' + parts[0];
+            if (filteredDrivers.length > 0) {
+                filteredDrivers.forEach(function (driver) {
+                    var parts = driver.dateOfBirth.split('-');
+                    var formattedDateOfBirth = parts[2] + '/' + parts[1] + '/' + parts[0];
 
-                var resultItem = document.createElement('div');
-                resultItem.classList.add('result-item');
-                resultItem.innerHTML = `
-                    <hr>
-                    <p><strong>Nome:</strong> ${driver.givenName} ${driver.familyName}</p>
-                    <p><strong>Nascimento:</strong> ${formattedDateOfBirth}</p>
-                    <p><strong>Nacionalidade:</strong> ${driver.nationality}</p>
-                    <hr>
-                `;
-                resultsContainer.appendChild(resultItem);
+                    var resultItem = document.createElement('div');
+                    resultItem.classList.add('result-item');
+                    resultItem.innerHTML = `
+                        <hr>
+                        <p><strong>Nome:</strong> ${driver.givenName} ${driver.familyName}</p>
+                        <p><strong>Nascimento:</strong> ${formattedDateOfBirth}</p>
+                        <p><strong>Nacionalidade:</strong> ${driver.nationality}</p>
+                        <hr>
+                    `;
+                    resultsContainer.appendChild(resultItem);
+                });
             } else {
-                resultsContainer.textContent = 'Nenhum resultado encontrado. Verifique.';
+                resultsContainer.textContent = 'Nenhum resultado encontrado.';
             }
         }
     </script>
