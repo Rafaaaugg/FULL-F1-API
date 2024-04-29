@@ -1,0 +1,64 @@
+.Title {
+  text-align: center;
+  margin-top: 20px;
+  background-color: #000000;
+  border-radius: 20px;
+}
+
+.busca {
+  text-align: center;
+  margin-top: 50px;
+}
+
+button {
+  padding: 12px;
+  margin-bottom: 20px;
+  background-color: #d8c111;
+  color: #000000;
+  border: none;
+  border-radius: 7px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+a {
+  color: rgb(19, 162, 210);
+  text-decoration: none;
+}
+
+.campos {
+  text-align: left;
+  border-radius: 15px;
+  margin: 70px;
+  display: flex;
+  margin-bottom: 0;
+}
+
+.campos strong {
+  width: 24%;
+}
+
+#results {
+  border: 4px solid #000000;
+  border-radius: 15px;
+  margin-inline: 20px;
+}
+
+.result-item {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.result-item p strong {
+  font-weight: bold;
+  color: #000000;
+}
+
+.result-item p {
+  margin: 5px 0;
+  font-size: 18px;
+  padding-left: 10px;
+}
