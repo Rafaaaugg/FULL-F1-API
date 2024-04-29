@@ -36,7 +36,7 @@ const App = () => {
         displayResults(data, inputValue);
       })
       .catch(error => {
-        console.error('Erro ao buscar dados:', error);
+        console.error('Erro ao buscar dados:.', error);
       });
   };
 
