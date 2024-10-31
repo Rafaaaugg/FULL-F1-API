@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { TextField, List, ListItem, ListItemText, Divider, Avatar } from '@mui/material';
+import { TextField, List, ListItem, Divider, Avatar } from '@mui/material';
 import './App.css';
 import logo from './f1logo.png';
 
@@ -87,7 +87,7 @@ const App = () => {
     });
 
     filteredDrivers.forEach(driver => {
-      const wikiTitle = driver.url.split('/').pop();
+      const wikiTitle = driver.url.split('/').pop(); // Obtém o título da página da URL
       fetchDriverImage(driver.driverId, wikiTitle);
     });
 
@@ -117,41 +117,43 @@ const App = () => {
             error={error !== ''}
             helperText={error}
           />
-          <div className="campos">
-            <strong>Foto</strong>
-            <strong>Nome</strong>
-            <strong>Nascimento</strong>
-            <strong>Nacionalidade</strong>
-            <strong>Wikipedia</strong>
+            <div className="campos">
+              <strong>Foto</strong>
+              <strong>Nome</strong>
+              <strong>Nascimento</strong>
+              <strong>Nacionalidade</strong>
+              <strong>Wikipedia</strong>
+            </div>
+          </div>
+          <div id="results">
+            <List>
+              {memoizedResults.length > 0 ? (
+                memoizedResults.map((driver, index) => (
+                  <div key={index}>
+                    <ListItem style={{ display: 'flex', alignItems: 'center' }}>
+                      <Avatar
+                        alt={driver.familyName}
+                        src={driverImages[driver.driverId]}
+                        style={{ width: '80px', height: '80px', marginRight: '10px' }}
+                      />
+                      <div style={{ flex: '1', display: 'flex', alignItems: 'center' }}>
+                        <div style={{ flex: '1', textAlign: 'center' }}>{`${driver.givenName} ${driver.familyName}`}</div>
+                        <div style={{ flex: '1', textAlign: 'center' }}>{driver.dateOfBirth}</div>
+                        <div style={{ flex: '1', textAlign: 'center' }}>{driver.nationality}</div>
+                        <div style={{ flex: '1', textAlign: 'center' }}>
+                          <a href={driver.url} target="_blank" rel="noopener noreferrer">Saiba Mais</a>
+                        </div>
+                      </div>
+                    </ListItem>
+                    {index !== memoizedResults.length - 1 && <Divider />}
+                  </div>
+                ))
+              ) : (
+                <p>{error || 'Nenhum resultado encontrado.'}</p>
+              )}
+            </List>
           </div>
         </div>
-        <div id="results">
-          <List>
-            {memoizedResults.length > 0 ? (
-              memoizedResults.map((driver, index) => (
-                <div key={index}>
-                  <ListItem>
-                    <Avatar
-                      alt={driver.familyName}
-                      src={driverImages[driver.driverId]}
-                      style={{ width: '80px', height: '80px', marginRight: '10px' }}
-                    />
-                    <ListItemText primary={`${driver.givenName} ${driver.familyName}`} />
-                    <ListItemText primary={driver.dateOfBirth} />
-                    <ListItemText primary={driver.nationality} />
-                    <ListItemText>
-                      <a href={driver.url} target="_blank" rel="noopener noreferrer">Saiba Mais</a>
-                    </ListItemText>
-                  </ListItem>
-                  {index !== memoizedResults.length - 1 && <Divider />}
-                </div>
-              ))
-            ) : (
-              <p>{error || 'Nenhum resultado encontrado.'}</p>
-            )}
-          </List>
-        </div>
-      </div>
     </SearchContext.Provider>
   );
 };
