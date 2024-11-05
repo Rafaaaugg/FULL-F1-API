@@ -19,6 +19,9 @@ const SearchBar = ({ onSearch }) => {
         variant="outlined"
         value={searchInput}
         onChange={handleInputChange}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') handleSearch();
+        }}
       />
       <Button variant="contained" onClick={handleSearch}>
         Pesquisar

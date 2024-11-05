@@ -1,0 +1,19 @@
+Documentação do Projeto de Busca de Pilotos de Fórmula 1
+
+1. Descrição do Projeto
+Este projeto é uma aplicação web que permite pesquisar informações sobre pilotos de Fórmula 1, como nome, data de nascimento, nacionalidade e link para o perfil do piloto na Wikipedia. A aplicação é uma SPA (Single Page Application), desenvolvida com React.js e implementada para consumir dados da API Ergast, que fornece informações sobre a Fórmula 1 em formato JSON.
+
+Tecnologias Utilizadas
+React.js: Biblioteca para criação de interfaces de usuário.
+Material-UI: Biblioteca de componentes UI para React.
+API Ergast: API pública que fornece dados de pilotos e corridas de Fórmula 1.
+Wikipedia API: Utilizada para buscar imagens dos pilotos com base nos títulos das páginas.
+
+2. Estrutura do Projeto
+A estrutura do projeto foi configurada com create-react-app, com os principais arquivos organizados da seguinte forma:
+
+src/
+├── index.js          # Ponto de entrada da aplicação
+├── App.js            # Componente principal da aplicação
+├── SearchBar.js      # Componente de barra de pesquisa
+└── f1logo.png        # Imagem do logotipo usada no cabeçalho
